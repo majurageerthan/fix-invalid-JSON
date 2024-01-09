@@ -1,13 +1,13 @@
 package com.workflow86.service.mock;
 
-public class MockJson {
+public class ValidMockJson {
 
-    public static final String SINGLE_OBJ_1 = """
+    public static final String SINGLE_VALID_OBJ_1 = """
             {
                 "_id": "659cab791d626cf7b64292b1",
                 "index": 0
             }""";
-    public static final String SINGLE_OBJ = """
+    public static final String SINGLE_VALID_OBJ_2 = """
             {
                 "_id": "659cab791d626cf7b64292b1",
                 "index": 0,

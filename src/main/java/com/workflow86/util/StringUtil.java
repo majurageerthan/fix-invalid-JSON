@@ -6,7 +6,7 @@ public class StringUtil {
     }
 
     public static boolean isCloseCurlyBracket(char c) {
-        return c == '{';
+        return c == '}';
     }
 
     public static boolean isOpenSquareBracket(char c) {
