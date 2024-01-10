@@ -132,8 +132,6 @@ class JsonServiceTest {
         void testFixInCompleteArrayGivenJson() throws JSONException {
             JsonService js = new JsonService(ARRAY_INVALID_GIVEN);
             String actual = js.fixInCompleteJSON();
-            System.out.println("-----------------------");
-            System.out.println(actual);
             JSONAssert.assertEquals(FIX_ARRAY_IN_VALID_GIVEN, actual, true);
         }
     }

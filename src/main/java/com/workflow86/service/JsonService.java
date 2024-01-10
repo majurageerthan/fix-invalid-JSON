@@ -72,7 +72,6 @@ public class JsonService {
             fixedJson.append(System.lineSeparator()).append('}');
         }
         for (char element : bracketStack) {
-//            System.out.println(element);
             if (isOpenSquareBracket(element)) {
                 fixedJson.append(System.lineSeparator()).append(']');
             }
@@ -84,30 +83,35 @@ public class JsonService {
     }
 
     public String fixDoubleQuoteAndComma(String json) {
-//TODO: Fix boolean
-
         List<String> fixedJSON = new ArrayList<>();
         String[] jsonByLines = json.split("\\n");
-
         for (int i = 0; i < jsonByLines.length; i++) {
             String trimmedLine = jsonByLines[i].trim();
+
             long noOfDoubleQuote = trimmedLine.chars().filter(StringUtil::isDoubleQuote).count();
             long noOColon = trimmedLine.chars().filter(StringUtil::isColon).count();
+//            Fix brackets
             if ((trimmedLine.length() == 1 || trimmedLine.length() == 2) && isBracket(trimmedLine.charAt(0))) {
                 if (isCloseCurlyBracketOrCloseSquareBracket(trimmedLine.charAt(0))) {
                     removeCommaFromPrevLastField(fixedJSON);
                 }
                 fixedJSON.add(trimmedLine);
+//                Adding correct fields
             } else if (noOfDoubleQuote == 4 && (noOColon >= 1 || trimmedLine.contains("://"))) {
                 String fixedDoubleQuotes = getQuoteCorrectedLastField(trimmedLine, jsonByLines, i);
                 fixedJSON.add(fixedDoubleQuotes);
             } else if ((noOfDoubleQuote < 4 && noOfDoubleQuote > 1)) {
                 String fixedDoubleQuotes = fixDoubleQuote(trimmedLine);
                 String correctedLastField = getQuoteCorrectedLastField(fixedDoubleQuotes, jsonByLines, i);
-                fixedJSON.add(correctedLastField);
+                String booleanCorrectedField = correctBooleanValues(correctedLastField);
+                fixedJSON.add(booleanCorrectedField);
             }
         }
         return String.join(System.lineSeparator(), fixedJSON);
+    }
+
+    private String correctBooleanValues(String boolString) {
+        return boolString.replace("false\"", "false").replace("true\"", "true");
     }
 
     private String getQuoteCorrectedLastField(String fixedDoubleQuotes, String[] jsonByLines, int i) {
@@ -135,7 +139,6 @@ public class JsonService {
     }
 
     private String fixDoubleQuote(String jsonField) {
-
         StringBuilder fixedQuote = new StringBuilder(jsonField);
         char firstChar = jsonField.charAt(0);
         if (!isDoubleQuote(firstChar)) {
