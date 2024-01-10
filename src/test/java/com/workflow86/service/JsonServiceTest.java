@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
+import static com.workflow86.service.mock.CorrectedValidMockJson.FIX_SINGLE_IN_VALID_OBJ_1;
+import static com.workflow86.service.mock.CorrectedValidMockJson.FIX_SINGLE_IN_VALID_OBJ_2;
 import static com.workflow86.service.mock.InValidMockJson.*;
 import static com.workflow86.service.mock.ValidMockJson.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class JsonServiceTest {
@@ -82,16 +83,37 @@ class JsonServiceTest {
     @Nested
     class FixInCompleteJson {
         @Test
-        void testJsonComparison() throws JSONException {
-            String expectedJson = "{\"name\": \"John\" , \"age\": 30}";
-            String actualJson = "{\"name\": \"John\", \"age\": 30}";
-            JSONAssert.assertEquals(expectedJson, actualJson, true);
+        void testFixDoubleQuoteAndComma() {
+            String incompleteJSON = """
+                    {
+                    "className":"year 1",
+                    "description":"class for year 1",
+                    "numberOfStudents":5,
+                    "group""";
+            String expectedJson = """
+                    {
+                    "className":"year 1",
+                    "description":"class for year 1",
+                    "numberOfStudents":5,
+                    """;
+            JsonService js = new JsonService(incompleteJSON);
+            String actual = js.fixDoubleQuoteAndComma(incompleteJSON);
+            assertEquals(expectedJson.replaceAll("\\s", ""), actual.replaceAll("\\s", ""));
         }
+
         @Test
         void testFixInCompleteJson1() throws JSONException {
-            String expectedJson = "{\"name\": \"John\" , \"age\": 30}";
-            String actualJson = "{\"name\": \"John\", \"age\": 30}";
-            JSONAssert.assertEquals(expectedJson, actualJson, true);
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_1);
+            String actual = js.fixInCompleteJSON();
+            System.out.println(actual);
+            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_1, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteJson2() throws JSONException {
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_2);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_2, actual, true);
         }
     }
 

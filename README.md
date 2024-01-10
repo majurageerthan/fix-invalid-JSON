@@ -5,6 +5,9 @@ Notes
 2. Appropriate unit tests were added with the mock data to ensure the code quality
 3. Solution was created only using pure Java. Some libraries were used only for the unit test purposes. eg: jsonassert
 
+Assumptions
+1. Assumed JSON is in multi lines. every field is in new line. because if many fields in same line comma or double quote missing.
+it can not be able to distinguish
 
 Fix code
 check line by line for "
