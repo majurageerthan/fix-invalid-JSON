@@ -44,7 +44,7 @@ public class JsonService {
      *
      * @return
      */
-    public String fixInCompleteJSON() {
+    public String fixIncompleteJSON() {
         if (isValidJSON()) {
             return jsonString;
         }
@@ -79,10 +79,10 @@ public class JsonService {
                 fixedJson.append(System.lineSeparator()).append('}');
             }
         }
-        return fixDoubleQuoteAndComma(fixedJson.toString());
+        return fixDoubleQuotesAndCommas(fixedJson.toString());
     }
 
-    public String fixDoubleQuoteAndComma(String json) {
+    public String fixDoubleQuotesAndCommas(String json) {
         List<String> fixedJSON = new ArrayList<>();
         String[] jsonByLines = json.split("\\n");
         for (int i = 0; i < jsonByLines.length; i++) {
