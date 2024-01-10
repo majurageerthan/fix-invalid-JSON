@@ -56,16 +56,36 @@ public class JsonService {
             if (isOpenCurlyBracketOrOpenSquareBracket(jc)) {
                 bracketStack.push(jc);
             }
+
+            if (isCloseCurlyBracket(jc) && isOpenCurlyBracket(bracketStack.peek())) {
+                bracketStack.pop();
+            }
+
+            if (isCloseSquareBracket(jc) && isOpenSquareBracket(bracketStack.peek())) {
+                bracketStack.pop();
+            }
+
             fixedJson.append(jc);
         }
 
         if (bracketStack.size() == 1 && isOpenCurlyBracket(bracketStack.pop())) {
             fixedJson.append(System.lineSeparator()).append('}');
         }
+        for (char element : bracketStack) {
+//            System.out.println(element);
+            if (isOpenSquareBracket(element)) {
+                fixedJson.append(System.lineSeparator()).append(']');
+            }
+            if (isOpenCurlyBracket(element)) {
+                fixedJson.append(System.lineSeparator()).append('}');
+            }
+        }
         return fixDoubleQuoteAndComma(fixedJson.toString());
     }
 
     public String fixDoubleQuoteAndComma(String json) {
+//TODO: Fix boolean
+
         List<String> fixedJSON = new ArrayList<>();
         String[] jsonByLines = json.split("\\n");
 
@@ -73,12 +93,12 @@ public class JsonService {
             String trimmedLine = jsonByLines[i].trim();
             long noOfDoubleQuote = trimmedLine.chars().filter(StringUtil::isDoubleQuote).count();
             long noOColon = trimmedLine.chars().filter(StringUtil::isColon).count();
-            if (trimmedLine.length() == 1 && isBracket(trimmedLine.charAt(0))) {
-                if(isCloseCurlyBracketOrCloseSquareBracket(trimmedLine.charAt(0))){
+            if ((trimmedLine.length() == 1 || trimmedLine.length() == 2) && isBracket(trimmedLine.charAt(0))) {
+                if (isCloseCurlyBracketOrCloseSquareBracket(trimmedLine.charAt(0))) {
                     removeCommaFromPrevLastField(fixedJSON);
                 }
                 fixedJSON.add(trimmedLine);
-            } else if (noOfDoubleQuote == 4 && (noOColon == 1 || trimmedLine.contains("://"))) {
+            } else if (noOfDoubleQuote == 4 && (noOColon >= 1 || trimmedLine.contains("://"))) {
                 String fixedDoubleQuotes = getQuoteCorrectedLastField(trimmedLine, jsonByLines, i);
                 fixedJSON.add(fixedDoubleQuotes);
             } else if ((noOfDoubleQuote < 4 && noOfDoubleQuote > 1)) {
@@ -131,7 +151,9 @@ public class JsonService {
             if (Character.isDigit(lastChar)) {
                 fixedQuote.append(",");
             } else {
-                fixedQuote.append("\",");
+                if (!isOpenCurlyBracketOrOpenSquareBracket(lastChar)) {
+                    fixedQuote.append("\",");
+                }
             }
         }
         return fixedQuote.toString();

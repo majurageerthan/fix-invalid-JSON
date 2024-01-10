@@ -118,8 +118,23 @@ class JsonServiceTest {
         void testFixInCompleteJson3() throws JSONException {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_GIVEN);
             String actual = js.fixInCompleteJSON();
-            System.out.println(actual);
             JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_GIVEN, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteArrayJson() throws JSONException {
+            JsonService js = new JsonService(ARRAY_INVALID);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_ARRAY_IN_VALID, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteArrayGivenJson() throws JSONException {
+            JsonService js = new JsonService(ARRAY_INVALID_GIVEN);
+            String actual = js.fixInCompleteJSON();
+            System.out.println("-----------------------");
+            System.out.println(actual);
+            JSONAssert.assertEquals(FIX_ARRAY_IN_VALID_GIVEN, actual, true);
         }
     }
 
