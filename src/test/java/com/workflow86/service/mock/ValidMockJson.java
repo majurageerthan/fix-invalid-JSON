@@ -28,6 +28,51 @@ public class ValidMockJson {
                 "latitude": -11.892153,
                 "longitude": -93.438746
             }""";
+
+    public static final String VALID_COMPLEX_GIVEN = """
+            {
+               "className":"year 1",
+               "description":"class for year 1",
+               "numberOfStudents":5,
+               "groups":[
+                  {
+                     "group":1,
+                     "students":[
+                        {
+                           "name":"student A",
+                           "needSupport":false
+                        },
+                        {
+                           "name":"student B",
+                           "needSupport":true
+                        },
+                        {
+                           "name":"student C",
+                           "needSupport":false
+                        }
+                     ]
+                  },
+                  {
+                     "group":2,
+                     "students":[
+                        {
+                           "name":"student D",
+                           "needSupport":false
+                        },
+                        {
+                           "name":"student E",
+                           "needSupport":true
+                        }
+                     ]
+                  }
+               ],
+               "naughtyList":[
+                  {
+                     "name":"student E",
+                     "needSupport":true
+                  }
+               ]
+            }""";
     public static final String ARRAY_OBJ = """
             [
               {

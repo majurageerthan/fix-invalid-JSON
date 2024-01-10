@@ -1,28 +1,28 @@
 package com.workflow86.service.mock;
 
-public class InValidMockJson {
+public class CorrectedValidMockJson {
 
-    public static final String SINGLE_INVALID_OBJ_1 = """
+    public static final String SINGLE_IN_VALID_OBJ_1 = """
             {
                 "_id": "659cab791d626cf7b64292b1",
                 "index": 0
-            """;
-    public static final String SINGLE_INVALID_OBJ_2 = """
+            }""";
+    public static final String SINGLE_IN_VALID_OBJ_2 = """
             {
                 "_id": "659cab791d626cf7b64292b1",
                 "index": 0,
                 "guid": "472a7132-9ff8-44eb-be0b-1ff229e8c2d3",
                 "isActive": true,
                 "balance": "$2,513.84",
-                "picture": "http://placehold.it/32x32",
-                "age""";
-    public static final String SINGLE_INVALID_OBJ_GIVEN = """
+                "picture": "http://placehold.it/32x32"
+            }""";
+    public static final String SINGLE_IN_VALID_OBJ_GIVEN = """
             {
                "className":"year 1",
                "description":"class for year 1",
                "numberOfStudents":5
-               "group""";
-    public static final String ARRAY_INVALID = """
+            }""";
+    public static final String ARRAY_IN_VALID= """
             [
               {
                 "_id": "659cab791d626cf7b64292b1",
@@ -56,9 +56,12 @@ public class InValidMockJson {
                   {
                     "id": 0,
                     "name": "Doris Bennett"
-                    """;
+                  }
+                ]
+              }
+            ]""";
 
-    public static final String ARRAY_INVALID_GIVEN = """
+    public static final String ARRAY_IN_VALID_GIVEN= """
             {
                "className":"year 1",
                "description":"class for year 1",
@@ -73,21 +76,10 @@ public class InValidMockJson {
                         },
                         {
                            "name":"student B",
-                           "needSupport":true""";
-
-    public static final String INVALID_COMPLEX_GIVEN = """
-            {
-               "className":"year 1",
-               "description":"class for year 1",
-               "numberOfStudents":5,
-               "groups":[
-                  {
-                     "group":1,
-                     "students":[
-                        {
-                           "name":"student A",
-                           "needSupport":false
-                        },
-                        {
-                           "name":"student B",""";
+                           "needSupport":true
+                        }
+                     ]
+                  }
+               ]
+            }""";
 }
