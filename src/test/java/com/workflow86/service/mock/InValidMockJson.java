@@ -90,4 +90,93 @@ public class InValidMockJson {
                         },
                         {
                            "name":"student B",""";
+
+    public static final String INVALID_COMPLEX_GIVEN_2 = """
+            {
+               "className":"year 1",
+               "description":"class for year 1",
+               "numberOfStudents":5,
+               "groups":[
+                  {
+                     "group":1,
+                    """;
+
+    public static final String INVALID_COMPLEX_GIVEN_3 = """
+            {
+               "className":"year 1",
+               "description":"class for year 1",
+               "numberOfStudents":5,
+               "groups":[
+                  {
+                     "group":1,
+                     "students":[
+                        {
+                           "name":"student A",
+                           "needSupport":false
+                        },
+                        {
+                           "name":"student B",
+                           "needSupport":true
+                        },
+                        {
+                           "name":"student C",
+                           "needSupport":false
+                        }
+                     ]
+                  },
+                  {
+                     "group":2,
+                     "students":[
+                        {
+                           "name":"student D",
+                           "needSupport":false
+                        },
+                        {
+                           "name":"student E",
+                           "needSupport":true
+                        }
+                     ]
+                  }
+               ],
+               "naughtyList":[
+                  {
+                     "name":"student E",""";
+
+    public static final String INVALID_COMPLEX_GIVEN_4 = """
+            {
+               "className":"year 1",
+               "description":"class for year 1",
+               "numberOfStudents":5,
+               "groups":[
+                  {
+                     "group":1,
+                     "students":[
+                        {
+                           "name":"student A",
+                           "needSupport":false
+                        },
+                        {
+                           "name":"student B",
+                           "needSupport":true
+                        },
+                        {
+                           "name":"student C",
+                           "needSupport":false
+                        }
+                     ]
+                  },
+                  {
+                     "group":2,
+                     "students":[
+                        {
+                           "name":"student D",""";
+
+    public static final String INVALID_COMPLEX_GIVEN_5 = """
+            {
+               "className":"year 1",
+               "description":"class for year 1",
+               "numberOfStudents":5,
+               "groups":[
+                  {""";
+
 }

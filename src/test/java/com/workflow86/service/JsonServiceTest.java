@@ -104,36 +104,65 @@ class JsonServiceTest {
         void testFixInCompleteJson1() throws JSONException {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_1);
             String actual = js.fixInCompleteJSON();
-            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_1, actual, true);
+            JSONAssert.assertEquals(FIX_SINGLE_INVALID_OBJ_1, actual, true);
         }
 
         @Test
         void testFixInCompleteJson2() throws JSONException {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_2);
             String actual = js.fixInCompleteJSON();
-            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_2, actual, true);
+            JSONAssert.assertEquals(FIX_SINGLE_INVALID_OBJ_2, actual, true);
         }
 
         @Test
         void testFixInCompleteJson3() throws JSONException {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_GIVEN);
             String actual = js.fixInCompleteJSON();
-            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_GIVEN, actual, true);
+            JSONAssert.assertEquals(FIX_SINGLE_INVALID_OBJ_GIVEN, actual, true);
         }
 
         @Test
         void testFixInCompleteArrayJson() throws JSONException {
             JsonService js = new JsonService(ARRAY_INVALID);
             String actual = js.fixInCompleteJSON();
-            JSONAssert.assertEquals(FIX_ARRAY_IN_VALID, actual, true);
+            JSONAssert.assertEquals(FIX_ARRAY_INVALID, actual, true);
         }
 
         @Test
         void testFixInCompleteArrayGivenJson() throws JSONException {
             JsonService js = new JsonService(ARRAY_INVALID_GIVEN);
             String actual = js.fixInCompleteJSON();
-            JSONAssert.assertEquals(FIX_ARRAY_IN_VALID_GIVEN, actual, true);
+            JSONAssert.assertEquals(FIX_ARRAY_INVALID_GIVEN, actual, true);
         }
+
+        @Test
+        void testFixInCompleteComplexGivenJson2() throws JSONException {
+            JsonService js = new JsonService(INVALID_COMPLEX_GIVEN_2);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_INVALID_COMPLEX_GIVEN_2, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteComplexGivenJson3() throws JSONException {
+            JsonService js = new JsonService(INVALID_COMPLEX_GIVEN_3);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_INVALID_COMPLEX_GIVEN_3, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteComplexGivenJson4() throws JSONException {
+            JsonService js = new JsonService(INVALID_COMPLEX_GIVEN_4);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_INVALID_COMPLEX_GIVEN_4, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteComplexGivenJson5() throws JSONException {
+            JsonService js = new JsonService(INVALID_COMPLEX_GIVEN_5);
+            String actual = js.fixInCompleteJSON();
+            JSONAssert.assertEquals(FIX_INVALID_COMPLEX_GIVEN_5, actual, true);
+        }
+
     }
 
 }
