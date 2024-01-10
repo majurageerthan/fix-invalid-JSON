@@ -1,6 +1,6 @@
 package com.workflow86.service.mock;
 
-public class InValidMockJson {
+public class InvalidMockJson {
 
     public static final String SINGLE_INVALID_OBJ_1 = """
             {
