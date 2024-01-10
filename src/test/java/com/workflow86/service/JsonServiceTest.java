@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-import static com.workflow86.service.mock.CorrectedValidMockJson.FIX_SINGLE_IN_VALID_OBJ_1;
-import static com.workflow86.service.mock.CorrectedValidMockJson.FIX_SINGLE_IN_VALID_OBJ_2;
+import static com.workflow86.service.mock.CorrectedValidMockJson.*;
 import static com.workflow86.service.mock.InValidMockJson.*;
 import static com.workflow86.service.mock.ValidMockJson.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -105,7 +104,6 @@ class JsonServiceTest {
         void testFixInCompleteJson1() throws JSONException {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_1);
             String actual = js.fixInCompleteJSON();
-            System.out.println(actual);
             JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_1, actual, true);
         }
 
@@ -114,6 +112,14 @@ class JsonServiceTest {
             JsonService js = new JsonService(SINGLE_INVALID_OBJ_2);
             String actual = js.fixInCompleteJSON();
             JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_2, actual, true);
+        }
+
+        @Test
+        void testFixInCompleteJson3() throws JSONException {
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_GIVEN);
+            String actual = js.fixInCompleteJSON();
+            System.out.println(actual);
+            JSONAssert.assertEquals(FIX_SINGLE_IN_VALID_OBJ_GIVEN, actual, true);
         }
     }
 

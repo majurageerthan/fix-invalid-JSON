@@ -3,9 +3,9 @@ package com.workflow86.service;
 import com.workflow86.util.StringUtil;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Deque;
-import java.util.stream.Stream;
+import java.util.List;
 
 import static com.workflow86.util.StringUtil.*;
 
@@ -13,7 +13,7 @@ public class JsonService {
     private final String jsonString;
 
     public JsonService(String jsonString) {
-        this.jsonString = jsonString;
+        this.jsonString = jsonString.trim();
     }
 
     public boolean isValidJSON() {
@@ -60,28 +60,58 @@ public class JsonService {
         }
 
         if (bracketStack.size() == 1 && isOpenCurlyBracket(bracketStack.pop())) {
-            fixedJson.append('}');
+            fixedJson.append(System.lineSeparator()).append('}');
         }
         return fixDoubleQuoteAndComma(fixedJson.toString());
     }
 
     public String fixDoubleQuoteAndComma(String json) {
-        StringBuilder fixedJSON = new StringBuilder();
-        Stream<String> linesStream = Arrays.stream(json.split("\\n"));
-        linesStream.forEach(line -> {
-            String trimmedLine = line.trim();
+        List<String> fixedJSON = new ArrayList<>();
+        String[] jsonByLines = json.split("\\n");
+
+        for (int i = 0; i < jsonByLines.length; i++) {
+            String trimmedLine = jsonByLines[i].trim();
             long noOfDoubleQuote = trimmedLine.chars().filter(StringUtil::isDoubleQuote).count();
             long noOColon = trimmedLine.chars().filter(StringUtil::isColon).count();
             if (trimmedLine.length() == 1 && isBracket(trimmedLine.charAt(0))) {
-                fixedJSON.append(trimmedLine).append(System.lineSeparator());
-            } else if (noOfDoubleQuote == 4 && noOColon == 1) {
-                fixedJSON.append(trimmedLine).append(System.lineSeparator());
+                if(isCloseCurlyBracketOrCloseSquareBracket(trimmedLine.charAt(0))){
+                    removeCommaFromPrevLastField(fixedJSON);
+                }
+                fixedJSON.add(trimmedLine);
+            } else if (noOfDoubleQuote == 4 && (noOColon == 1 || trimmedLine.contains("://"))) {
+                String fixedDoubleQuotes = getQuoteCorrectedLastField(trimmedLine, jsonByLines, i);
+                fixedJSON.add(fixedDoubleQuotes);
             } else if ((noOfDoubleQuote < 4 && noOfDoubleQuote > 1)) {
                 String fixedDoubleQuotes = fixDoubleQuote(trimmedLine);
-                fixedJSON.append(fixedDoubleQuotes).append(System.lineSeparator());
+                String correctedLastField = getQuoteCorrectedLastField(fixedDoubleQuotes, jsonByLines, i);
+                fixedJSON.add(correctedLastField);
             }
-        });
-        return fixedJSON.toString();
+        }
+        return String.join(System.lineSeparator(), fixedJSON);
+    }
+
+    private String getQuoteCorrectedLastField(String fixedDoubleQuotes, String[] jsonByLines, int i) {
+        String lastFieldCorrected = fixedDoubleQuotes;
+        if (isLastField(jsonByLines, i)) {
+            lastFieldCorrected = fixedDoubleQuotes.replace(",", "");
+        }
+        return lastFieldCorrected;
+    }
+
+
+    private boolean isLastField(String[] jsonByLines, int i) {
+        return i < jsonByLines.length - 1 && !jsonByLines[i + 1].isEmpty() && isCloseCurlyBracketOrCloseSquareBracket(jsonByLines[i + 1].trim().charAt(0));
+    }
+
+    private void removeCommaFromPrevLastField(List<String> fixedJSON) {
+        int lastIndex = fixedJSON.size() - 1;
+        if (lastIndex > 0) {
+            String lastField = fixedJSON.get(lastIndex).trim();
+            if (!lastField.isEmpty()) {
+                String prevField = fixedJSON.get(lastIndex).replace(",", "");
+                fixedJSON.set(lastIndex, prevField);
+            }
+        }
     }
 
     private String fixDoubleQuote(String jsonField) {
@@ -93,15 +123,17 @@ public class JsonService {
         }
 
         char lastChar = jsonField.charAt(jsonField.length() - 1);
-
         if (isDoubleQuote(lastChar)) {
             fixedQuote.append(',');
         }
 
         if (!isDoubleQuote(lastChar) && !isComma(lastChar)) {
-            fixedQuote.append("\",");
+            if (Character.isDigit(lastChar)) {
+                fixedQuote.append(",");
+            } else {
+                fixedQuote.append("\",");
+            }
         }
-
         return fixedQuote.toString();
     }
 }
