@@ -1,25 +1,46 @@
-Documentation and Explanation
+# Documentation and Explanation
 
-Notes
-1. Below solution will work for ANY JSON. I.e. not restricted only to the JSON above.
-2. Appropriate unit tests were added with the mock data to ensure the code quality
-3. Solution was created only using pure Java. Some libraries were used only for the unit test purposes. eg: jsonassert
+## Highlights
+1. The provided solution is universal and works with any JSON format, not limited to specific structures.
+2. Developed using Test Driven Development (TDD) methodology.
 
-Assumptions
-1. Assumed JSON is in multi lines. every field is in new line. because if many fields in same line comma or double quote missing.
-it can not be able to distinguish
+## Notes
+1. Unit tests were carefully crafted with mock data to guarantee code quality.
+2. Pure Java was employed for the solution, with additional use of libraries like JUnit and JSONAssert solely for unit testing.
 
-Fix code
-check line by line for "
+## Assumptions
+1. Based on the challenge document and examples:
+    1. JSON is formatted across multiple lines.
+    2. Each field is on a new line to avoid issues with missing commas or double quotes.
+    3. Incomplete JSON is assumed to be correct up to the cutting line.
 
-First code the given string will be checked whether is is valid json or not.
-if a valid json is given, it will simply return the valid json
+## Design Summary
 
-if the json is not valid, the method will Extract the data from the JSON as much and as detail as possible
-then return the extracted json string
+The solution first checks if the provided string is a valid JSON. If valid, it returns the original JSON. If invalid or incomplete, it extracts as much data as possible, correcting missing brackets, double quotes, and extra commas to produce a well-formed JSON string.
 
-Instructions to run code
-1. Java 21 is used to create this solution
-2. Run Main method with the given json string supplied
-3. Or run the unit test `src/test/java/com/workflow86/service/JsonServiceTest.java` to run with the existing provided test cases
+## Design Explanation
 
+* Validate the given JSON; if valid, return the original.
+* If invalid:
+    1. Iterate through each character, using a stack to track brackets.
+    2. Append characters to a StringBuilder.
+    3. Handle opening and closing brackets, ensuring correct matching.
+    4. After iteration, append any remaining closing brackets with new lines.
+    5. Return the fixed JSON.
+
+## Input and Output
+
+* Input: An incomplete JSON string. 
+* Output: A completed and valid JSON string.
+
+
+## Instructions to Run Code
+1. Ensure Java 21 or a compatible runtime is installed.
+2. Ensure that Apache Maven 3.9.5 or a later version is installed and import the project using Maven.
+3. Refer to the `com/workflow86/Main.java` file for an example featuring an incomplete JSON.
+4. Execute the Main method with any incomplete JSON to obtain a completed version.
+5. Alternatively, execute the unit test `src/test/java/com/workflow86/service/JsonServiceTest.java` using Maven (`mvn test`).
+
+## Unit Test Highlights
+1. Rigorous unit tests with diverse mock data.
+2. JUnit and JSONAssert libraries were utilized solely to check if the solution's outcome matches the expected result.
