@@ -3,16 +3,16 @@ package com.workflow86.service;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.workflow86.service.mock.InValidMockJson.*;
+import static com.workflow86.service.mock.InvalidMockJson.*;
+import static com.workflow86.service.mock.InvalidMockJson.INVALID_COMPLEX_GIVEN;
 import static com.workflow86.service.mock.ValidMockJson.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-class JsonServiceTest {
+public class SimpleOneObjectJsonTest {
 
     @Nested
-    class SimpleOneObjectJson {
+    class ValidJsonTests {
         @Test
         void testValidJson1() {
             JsonService js = new JsonService(SINGLE_VALID_OBJ_1);
@@ -24,46 +24,39 @@ class JsonServiceTest {
             JsonService js = new JsonService(SINGLE_VALID_OBJ_2);
             assertTrue(js.isValidJSON());
         }
-
-        @Test
-        void testInValidJson1() {
-            JsonService js = new JsonService(SINGLE_IN_VALID_OBJ_1);
-            assertFalse(js.isValidJSON());
-        }
-
-        @Test
-        void testInValidJson2() {
-            JsonService js = new JsonService(SINGLE_IN_VALID_OBJ_2);
-            assertFalse(js.isValidJSON());
-        }
-
-        @Test
-        void testInValidJsonGiven() {
-            JsonService js = new JsonService(SINGLE_IN_VALID_OBJ_GIVEN);
-            assertFalse(js.isValidJSON());
-        }
     }
 
     @Nested
-    class SimpleArrayJson {
+    class InvalidJsonTests {
         @Test
-        void testValidArrayJson1() {
-            JsonService js = new JsonService(ARRAY_OBJ);
+        void testInvalidJsonGivenComplex() {
+            JsonService js = new JsonService(VALID_COMPLEX_GIVEN);
             assertTrue(js.isValidJSON());
         }
 
         @Test
-        void testInValidArrayJson1() {
-            JsonService js = new JsonService(ARRAY_IN_VALID);
+        void testInvalidJson1() {
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_1);
             assertFalse(js.isValidJSON());
         }
 
         @Test
-        void testInValidArrayJsonGiven() {
-            JsonService js = new JsonService(ARRAY_IN_VALID_GIVEN);
+        void testInvalidJson2() {
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_2);
+            assertFalse(js.isValidJSON());
+        }
+
+        @Test
+        void testInvalidJsonGiven() {
+            JsonService js = new JsonService(SINGLE_INVALID_OBJ_GIVEN);
+            assertFalse(js.isValidJSON());
+        }
+
+        @Test
+        void testInvalidComplexJsonGiven() {
+            JsonService js = new JsonService(INVALID_COMPLEX_GIVEN);
             assertFalse(js.isValidJSON());
         }
     }
-
 
 }
