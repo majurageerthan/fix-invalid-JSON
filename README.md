@@ -33,13 +33,49 @@ The solution first checks if the provided string is a valid JSON. If valid, it r
 * Input: An incomplete JSON string. 
 * Output: A completed and valid JSON string.
 
-
 ## Instructions to Run Code
-1. Ensure Java 21 or a compatible runtime is installed.
-2. Ensure that Apache Maven 3.9.5 or a later version is installed and import the project using Maven.
-3. Refer to the `com/workflow86/Main.java` file for an example featuring an incomplete JSON.
-4. Execute the Main method with any incomplete JSON to obtain a completed version.
-5. Alternatively, execute the unit test `src/test/java/com/workflow86/service/JsonServiceTest.java` using Maven (`mvn test`).
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/majurageerthan/technical-solution-workflow86.git
+   ```
+2. **Switch to main branch:**
+   ```bash
+   git switch main
+   ```
+
+3. **Navigate to the Project Directory:**
+   ```bash
+   cd technical-solution-workflow86
+   ```
+
+4. **Ensure Java 21 is Installed:**
+    - Confirm that Java 21 or a compatible version is installed on your system.
+
+5. **Ensure Maven 3.9.5 or Higher is Installed:**
+    - Verify that Apache Maven 3.9.5 or a later version is installed on your machine.
+
+6. **Build the Project:**
+   ```bash
+   mvn clean install
+   ```
+
+7. **Run the Main Method with Incomplete JSON:**
+    - Open the `com/workflow86/Main.java` file.
+    - Modify or use the existing incomplete JSON in the `main` method.
+    - Run the `Main` class to see the completed and valid JSON.
+
+8. **Run Unit Tests:**
+   ```bash
+   mvn test
+   ```
+    - This will execute the unit tests and display the results.
+      - `src/test/java/com/workflow86/service/FixIncompleteJsonTest.java`
+      - `src/test/java/com/workflow86/service/SimpleArrayJsonTest.java`
+      - `src/test/java/com/workflow86/service/SimpleOneObjectJsonTest.java`
+
+These instructions are provided with the assumption that Git, Java, and Maven are already installed on the system.
+If adjustments are necessary based on the specific environment, kindly make the required modifications.
 
 ## Unit Test Highlights
 1. Rigorous unit tests with diverse mock data.
