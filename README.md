@@ -39,16 +39,17 @@ The solution first checks if the provided string is a valid JSON. If valid, it r
    ```bash
    git clone https://github.com/majurageerthan/technical-solution-workflow86.git
    ```
-2. **Switch to main branch:**
-   ```bash
-   git switch main
-   ```
 
-3. **Navigate to the Project Directory:**
+2. **Navigate to the Project Directory:**
    ```bash
    cd technical-solution-workflow86
    ```
 
+3. **Switch to main branch:**
+   ```bash
+   git switch main
+   ```
+   
 4. **Ensure Java 21 is Installed:**
     - Confirm that Java 21 or a compatible version is installed on your system.
 
