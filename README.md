@@ -37,12 +37,12 @@ The solution first checks if the provided string is a valid JSON. If valid, it r
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/majurageerthan/technical-solution-workflow86.git
+   git clone https://github.com/majurageerthan/fix-invalid-JSON.git
    ```
 
 2. **Navigate to the Project Directory:**
    ```bash
-   cd technical-solution-workflow86
+   cd fix-invalid-JSON
    ```
 
 3. **Switch to main branch:**
